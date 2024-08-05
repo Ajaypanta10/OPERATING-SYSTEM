@@ -1,0 +1,124 @@
+LAB ASSIGNMENT
+(PAS078BEI002)
+
+
+Question: Describe and discuss the use case of following:
+->
+   1. fork()
+
+fork() creates a new process by duplicating the calling process. The new process is called the child process. The child process is an exact copy of the parent process except for the returned value.
+
+Used to create new processes in multitasking operating systems. For example, in a shell program, when a user types a command, the shell calls fork() to create a new process to execute the command.
+
+2. exec()
+
+exec() family of functions replaces the current process image with a new process image. It loads a program into the current process space and starts its execution.
+
+After a fork(), a typical pattern is to use exec() in the child process to run a new program. For instance, a shell might use fork() to create a new process and then use exec() to run the user command in that process.
+
+3. getpid()
+
+getpid() returns the process ID (PID) of the calling process.
+
+Useful for debugging, logging, and in any scenario where the process needs to identify itself. For example, a server might log its PID for later use to send signals or for process management.
+4. wait()
+
+wait() makes a process wait until any of its child processes terminate. It returns the PID of the terminated child process.
+
+Often used in conjunction with fork(). The parent process uses wait() to wait for its child processes to complete. For example, a shell might use wait() to wait for a command to finish before prompting the user for the next command.
+
+5. stat()
+
+stat() retrieves information about the file specified by the path and fills a structure with details such as file size, ownership, permissions, and modification times.
+
+Used to obtain file metadata. For instance, before performing certain operations on a file, a program might use stat() to check if the file exists and to gather its attributes.
+
+6. opendir()
+
+opendir() opens a directory stream corresponding to the directory name and returns a pointer to the directory stream.
+
+Used for reading the contents of a directory. For example, a file manager application might use opendir() to open a directory to list all files and subdirectories it contains.
+
+7. readdir()
+
+readdir() reads the next directory entry from the directory stream and returns a pointer to a structure representing the directory entry.
+
+Used in conjunction with opendir() to iterate over all entries in a directory. For instance, a backup program might use readdir() to list all files in a directory to back them up.
+
+8. close()
+
+close() closes a file descriptor, so it no longer refers to any file and may be reused.
+
+Used to release a file descriptor when it is no longer needed. For example, after reading from or writing to a file, a program should call close() to free up the file descriptor and resources associated with it.
+
+
+// C program for producer consumer problem
+
+#include <stdio.h>
+#include <stdlib.h>
+
+//initialize a mutex to 1
+int mutex = 1;
+
+//number full of slots as 0
+int full =0;
+
+//number pr empty slots as size of buffer
+int empty = 10,x=0;
+
+//functoin to produce an item and add it to the buffer
+
+void(){
+    --mutex;  //decrease mutex by 1
+    ++full;    //increase number of full slots by 1
+    --empty;   //decrease empty slots
+    x++;
+    printf("\n Producer produces item %d",x);
+
+    ++mutex;
+}
+
+//function to consume an item and remove buffer
+
+void consumer(){
+    --mutex;
+    --full;
+    ++empty;
+    printf("\n Consumer consumes" "item %d" ,x);
+    x--;
+    ++mutex;
+}
+
+int main(){
+    int n,i'
+    printf("\n 1. Press 1 for Producer");
+    printf("\n 2. Press 2 for Consumer");
+    printf("\n 3. Press 3 for Exit");
+
+    printf("\n Enter your choice:");
+    scanf("%d",&n);
+    //switch cases
+    switch(n){
+    case 1:
+          if((mutex ==1)) && (empty !=0)){
+          producer();} 
+           }
+          else{
+          printf("Buffer is full");
+          }
+          break;
+    
+    case 2:
+          if((mutex == 1) && (full !=0)){
+          consumer();}
+          else{
+          printf("Buffer is empty!");
+          }
+          break;
+
+    case 3:
+          exit(0);
+          break;
+    }
+
+}
